@@ -1,6 +1,7 @@
 array_size = 0
 array = []
 xs = []
+errors = []
 
 def input_int(promt):
     try:
@@ -27,8 +28,10 @@ def define_array_size():
             
 def define_results_array():
     global xs
+    global errors
     for elements in range(array_size):
         xs.append(0)
+        errors.append(0)
             
 def insert_array_values():
     global array
@@ -51,8 +54,25 @@ def show_1d_array(array):
         print(f"{element},", end=" ")
     print("")        
         
+def process():
+    global array
+    global xs
+    global errors
+    for row in range(array_size):
+        result = 0
+        for column in range(len(array[row])):
+            if column != row:
+                if column < len(array[row]) - 1:
+                    result -= array[row][column] * xs[column]
+                else:
+                    result += array[row][column]
+        xs[row] = result / array[row][row]
+        
+    
 define_array_size()
 define_results_array()
-print(xs)
 insert_array_values()
+process()
 print(array)
+print(xs)
+print(errors)
